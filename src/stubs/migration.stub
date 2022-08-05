@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AddCarterColumns extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('users', function(Blueprint $table)
+        {
+            $table->string('domain')->unique();
+            $table->unsignedBigInteger('shopify_id')->unique();
+            $table->string('access_token');
+            $table->unsignedBigInteger('charge_id')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('users', function(Blueprint $table)
+        {
+            $table->dropColumn('domain', 'shopify_id', 'access_token', 'charge_id');
+        });
+    }
+}
